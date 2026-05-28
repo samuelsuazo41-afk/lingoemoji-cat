@@ -1,1 +1,49 @@
-
+const TIPS_DATA = {
+  gramatica: [
+    { nivell: 1, ca: { titol: "Articles", text: "el, la, els, les. Ex: el gat, la casa" }, es: { titol: "Artículos", text: "el, la, els, les. Ej: el gato, la casa" }, en: { titol: "Articles", text: "el, la, els, les. Ex: el gat, la casa" } },
+    { nivell: 1, ca: { titol: "Adjectius", text: "Van després del nom. Casa gran, no gran casa" }, es: { titol: "Adjetivos", text: "Van después del nombre. Casa gran, no gran casa" }, en: { titol: "Adjectives", text: "Go after the noun. Casa gran, not gran casa" } },
+    { nivell: 1, ca: { titol: "Plural", text: "-s per a la majoria. Gat → gats, taula → taules" }, es: { titol: "Plural", text: "-s para la mayoría. Gat → gats, taula → taules" }, en: { titol: "Plural", text: "-s for most. Gat → gats, taula → taules" } },
+    { nivell: 2, ca: { titol: "Pronoms febles", text: "Ho, el, la, els, les. Ex: Ho sé, La veig" }, es: { titol: "Pronombres débiles", text: "Ho, el, la, els, les. Ej: Ho sé, La veig" }, en: { titol: "Weak pronouns", text: "Ho, el, la, els, les. Ex: Ho sé, La veig" } },
+    { nivell: 2, ca: { titol: "Perdre vs Perdre's", text: "Perdre algo, perdre's lloc" }, es: { titol: "Perder vs Perders", text: "Perdre algo, perdre's lloc" }, en: { titol: "Perdre vs Perdre's", text: "Perdre algo, perdre's lloc" } },
+    { nivell: 2, ca: { titol: "Ser vs Estar", text: "Ser permanent, estar temporal. Soc català, estic cansat" }, es: { titol: "Ser vs Estar", text: "Ser permanente, estar temporal. Soc català, estic cansat" }, en: { titol: "Ser vs Estar", text: "Ser permanent, estar temporal. Soc català, estic cansat" } },
+    { nivell: 2, ca: { titol: "Subjuntiu", text: "Després de voler, dubtar: Vull que vinguis" }, es: { titol: "Subjuntivo", text: "Después de querer, dudar: Vull que vinguis" }, en: { titol: "Subjunctive", text: "After querer, dudar: Vull que vinguis" } },
+    { nivell: 3, ca: { titol: "Condicional", text: "Per a hipòtesis: Si tingués temps, vindria" }, es: { titol: "Condicional", text: "Para hipótesis: Si tingués temps, vindria" }, en: { titol: "Conditional", text: "For hypothesis: Si tingués temps, vindria" } },
+    { nivell: 3, ca: { titol: "Per vs Per a", text: "Per causa, per a destinació. Ho faig per tu, és per a tu" }, es: { titol: "Per vs Per a", text: "Per causa, per a destinació. Ho faig per tu, és per a tu" }, en: { titol: "Per vs Per a", text: "Per cause, per a destination. Ho faig per tu, és per a tu" } },
+    { nivell: 3, ca: { titol: "Gerundi", text: "Acció en curs: Estic menjant" }, es: { titol: "Gerundio", text: "Acción en curso: Estic menjant" }, en: { titol: "Gerund", text: "Action in progress: Estic menjant" } },
+    { nivell: 2, ca: { titol: "Posseïus", text: "El meu, la teva, els seus. Coincideixen en gènere" }, es: { titol: "Posesivos", text: "El meu, la teva, els seus. Coinciden en género" }, en: { titol: "Possessives", text: "El meu, la teva, els seus. Match in gender" } },
+    { nivell: 2, ca: { titol: "Demostratius", text: "Aquest, aquesta, aquests, aquestes" }, es: { titol: "Demostrativos", text: "Aquest, aquesta, aquests, aquestes" }, en: { titol: "Demonstratives", text: "Aquest, aquesta, aquests, aquestes" } },
+    { nivell: 3, ca: { titol: "Passat perifràstic", text: "Vaig menjar, vas venir. Molt usat oral" }, es: { titol: "Pasado perifrástico", text: "Vaig menjar, vas venir. Muy usado oral" }, en: { titol: "Periphrastic past", text: "Vaig menjar, vas venir. Very common oral" } },
+    { nivell: 3, ca: { titol: "Oracions relatives", text: "Que, qui, on. El llibre que llegeixo" }, es: { titol: "Oraciones de relativo", text: "Que, qui, on. El llibre que llegeixo" }, en: { titol: "Relative clauses", text: "Que, qui, on. El llibre que llegeixo" } }
+  ],
+  pronunciacio: [
+    { nivell: 1, ca: { titol: "L·l", text: "Es pronuncia doble: col·lecció = col-lecció" }, es: { titol: "L·l", text: "Se pronuncia doble: col·lecció = col-lecció" }, en: { titol: "L·l", text: "Pronounce double: col·lecció = col-lecció" } },
+    { nivell: 1, ca: { titol: "E oberta/tancada", text: "E oberta [ε]: porta. E tancada [e]: bé" }, es: { titol: "E abierta/cerrada", text: "E abierta [ε]: porta. E cerrada [e]: bé" }, en: { titol: "Open/closed E", text: "Open [ε]: porta. Closed [e]: bé" } },
+    { nivell: 1, ca: { titol: "O oberta/tancada", text: "O oberta [ɔ]: porta. O tancada [o]: bo" }, es: { titol: "O abierta/cerrada", text: "O abierta [ɔ]: porta. O cerrada [o]: bo" }, en: { titol: "Open/closed O", text: "Open [ɔ]: porta. Closed [o]: bo" } },
+    { nivell: 2, ca: { titol: "Ny", text: "Sona com ñ: any = añ" }, es: { titol: "Ny", text: "Suena como ñ: any = añ" }, en: { titol: "Ny", text: "Sounds like ñ: any = añ" } },
+    { nivell: 2, ca: { titol: "Ll", text: "Sona com ll de lluvia: lluna" }, es: { titol: "Ll", text: "Suena como ll de lluvia: lluna" }, en: { titol: "Ll", text: "Sounds like ll in lluvia: lluna" } },
+    { nivell: 2, ca: { titol: "S sorda/sonora", text: "Casa = s sonora, casa = sorda" }, es: { titol: "S sorda/sonora", text: "Casa = s sonora, casa = sorda" }, en: { titol: "S voiced/voiceless", text: "Casa = voiced s, casa = voiceless s" } },
+    { nivell: 3, ca: { titol: "Tz, ig", text: "Tz = ts: dotze. Ig final = tx: maig = maitx" }, es: { titol: "Tz, ig", text: "Tz = ts: dotze. Ig final = tx: maig = maitx" }, en: { titol: "Tz, ig", text: "Tz = ts: dotze. Final ig = tx: maig = maitx" } },
+    { nivell: 1, ca: { titol: "Accent", text: "Agudes en consonant, planes en vocal. Café, taula" }, es: { titol: "Acento", text: "Agudas en consonante, llanas en vocal. Café, taula" }, en: { titol: "Stress", text: "Oxytone on consonant, paroxytone on vowel. Café, taula" } },
+    { nivell: 2, ca: { titol: "Diftongs", text: "Ai, ei, oi es pronuncien en una síl·laba: aire" }, es: { titol: "Diptongos", text: "Ai, ei, oi se pronuncian en una sílaba: aire" }, en: { titol: "Diphthongs", text: "Ai, ei, oi in one syllable: aire" } },
+    { nivell: 3, ca: { titol: "R forta", text: "R inicial o doble: carro, rosa. Suau entre vocals" }, es: { titol: "R fuerte", text: "R inicial o doble: carro, rosa. Suave entre vocales" }, en: { titol: "Strong R", text: "Initial or double R: carro, rosa. Soft between vowels" } }
+  ],
+  vocabulari: [
+    { nivell: 1, ca: { titol: "Salutacions", text: "Bon dia, bona tarda, bona nit, adéu" }, es: { titol: "Saludos", text: "Bon dia, bona tarda, bona nit, adéu" }, en: { titol: "Greetings", text: "Bon dia, bona tarda, bona nit, adéu" } },
+    { nivell: 1, ca: { titol: "Números 1-10", text: "Un, dos, tres, quatre, cinc, sis, set, vuit, nou, deu" }, es: { titol: "Números 1-10", text: "Un, dos, tres, quatre, cinc, sis, set, vuit, nou, deu" }, en: { titol: "Numbers 1-10", text: "Un, dos, tres, quatre, cinc, sis, set, vuit, nou, deu" } },
+    { nivell: 2, ca: { titol: "Dies setmana", text: "Dilluns, dimarts, dimecres, dijous, divendres" }, es: { titol: "Días semana", text: "Dilluns, dimarts, dimecres, dijous, divendres" }, en: { titol: "Weekdays", text: "Dilluns, dimarts, dimecres, dijous, divendres" } },
+    { nivell: 2, ca: { titol: "Menjar bàsic", text: "Pa, aigua, vi, carn, peix, verdura" }, es: { titol: "Comida básica", text: "Pa, aigua, vi, carn, peix, verdura" }, en: { titol: "Basic food", text: "Pa, aigua, vi, carn, peix, verdura" } },
+    { nivell: 3, ca: { titol: "Falsos amics", text: "Embarassada = embarazada, actual = actual" }, es: { titol: "Falsos amigos", text: "Embarassada = embarazada, actual = actual" }, en: { titol: "False friends", text: "Embarassada = pregnant, actual = current" } },
+    { nivell: 2, ca: { titol: "Temps", text: "Avui, ahir, demà, ara, després" }, es: { titol: "Tiempo", text: "Avui, ahir, demà, ara, després" }, en: { titol: "Time", text: "Avui, ahir, demà, ara, després" } },
+    { nivell: 3, ca: { titol: "Verbs modals", text: "Poder, voler, haver de + infinitiu" }, es: { titol: "Verbos modales", text: "Poder, voler, haver de + infinitiu" }, en: { titol: "Modal verbs", text: "Poder, voler, haver de + infinitive" } },
+    { nivell: 2, ca: { titol: "Ubicació", text: "Aquí, allà, dalt, baix, dins, fora" }, es: { titol: "Ubicación", text: "Aquí, allà, dalt, baix, dins, fora" }, en: { titol: "Location", text: "Aquí, allà, dalt, baix, dins, fora" } },
+    { nivell: 3, ca: { titol: "Connectors", text: "Però, encara que, per tant, així que" }, es: { titol: "Conectores", text: "Però, encara que, per tant, així que" }, en: { titol: "Connectors", text: "Però, encara que, per tant, així que" } }
+  ],
+  cultura: [
+    { nivell: 1, ca: { titol: "Castells", text: "Torres humanes declarades patrimoni UNESCO" }, es: { titol: "Castells", text: "Torres humanas declaradas patrimonio UNESCO" }, en: { titol: "Castells", text: "Human towers, UNESCO heritage" } },
+    { nivell: 1, ca: { titol: "Parlants", text: "Català el parlen 10 milions de persones" }, es: { titol: "Hablantes", text: "Catalán lo hablan 10 millones de personas" }, en: { titol: "Speakers", text: "Catalan has 10 million speakers" } },
+    { nivell: 2, ca: { titol: "Diada", text: "11 de setembre, festa nacional de Catalunya" }, es: { titol: "Diada", text: "11 de septiembre, fiesta nacional de Cataluña" }, en: { titol: "Diada", text: "Sept 11, national day of Catalonia" } },
+    { nivell: 2, ca: { titol: "Sant Jordi", text: "23 d’abril: roses i llibres" }, es: { titol: "Sant Jordi", text: "23 de abril: rosas y libros" }, en: { titol: "Sant Jordi", text: "April 23: roses and books" } },
+    { nivell: 3, ca: { titol: "Varietats", text: "Català oriental i occidental. Valencià és català" }, es: { titol: "Variedades", text: "Catalán oriental y occidental. Valenciano es catalán" }, en: { titol: "Varieties", text: "Eastern and Western Catalan. Valencian is Catalan" } },
+    { nivell: 3, ca: { titol: "Topònims", text: "Barcelona, Girona, Lleida, Tarragona són les 4 províncies" }, es: { titol: "Topónimos", text: "Barcelona, Girona, Lleida, Tarragona son las 4 provincias" }, en: { titol: "Toponyms", text: "Barcelona, Girona, Lleida, Tarragona are the 4 provinces" } }
+  ]
+};
