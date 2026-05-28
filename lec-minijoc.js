@@ -1,5 +1,5 @@
 // lec-minijoc.js
-// Lògica del minijoc d'emoji LEC
+// Lògica del minijoc LEC - compatible amb emoji-data.js i botiga-data.js
 
 let categoriesActives = [];
 let categoria1 = null;
@@ -7,10 +7,33 @@ let categoria2 = null;
 let emoji1 = null;
 let emoji2 = null;
 
+// Variables locals del joc - les canviarem segons el mode
+let EMOJIS = [];
+let CATEGORIES = {};
+
+// Canvia entre mode Emoji i mode Botica
+function setGameMode(mode) {
+    if (mode === 'botica' && typeof BOTIGA_EMOJI_DATA!== 'undefined') {
+        // Usa dades de Botica
+        EMOJIS = BOTIGA_EMOJI_DATA;
+        CATEGORIES = BOTIGA_CATEGORIES_EMOJI;
+    } else {
+        // Usa dades d'Emoji per defecte
+        EMOJIS = EMOJI_DATA;
+        CATEGORIES = CATEGORIES_EMOJI;
+    }
+}
+
 // Inicialitza el joc
 function iniciarMinijoc() {
-    // Selecciona 2 categories aleatòries diferents
-    const totesCategories = Object.keys(CATEGORIES_EMOJI).filter(cat => CATEGORIES_EMOJI[cat].length > 0);
+    // Selecciona 2 categories aleatòries diferents amb emojis
+    const totesCategories = Object.keys(CATEGORIES).filter(cat => CATEGORIES[cat].length > 0);
+
+    if (totesCategories.length < 2) {
+        console.error('No hi ha prou categories amb emojis');
+        return;
+    }
+
     categoria1 = totesCategories[Math.floor(Math.random() * totesCategories.length)];
 
     do {
@@ -18,8 +41,8 @@ function iniciarMinijoc() {
     } while (categoria2 === categoria1);
 
     // Agafa 1 emoji aleatori de cada categoria
-    const emojis1 = CATEGORIES_EMOJI[categoria1];
-    const emojis2 = CATEGORIES_EMOJI[categoria2];
+    const emojis1 = CATEGORIES[categoria1];
+    const emojis2 = CATEGORIES[categoria2];
 
     emoji1 = emojis1[Math.floor(Math.random() * emojis1.length)];
     emoji2 = emojis2[Math.floor(Math.random() * emojis2.length)];
@@ -37,7 +60,7 @@ function iniciarMinijoc() {
 
 // Cerca dades completes d'un emoji
 function buscarEmojiData(emoji) {
-    return EMOJI_DATA.find(e => e.emoji === emoji);
+    return EMOJIS.find(e => e.emoji === emoji);
 }
 
 // Valida la resposta de l'usuari
@@ -76,4 +99,8 @@ function novaRonda() {
 }
 
 // Carrega la primera ronda quan s'obre la pàgina
-window.addEventListener('DOMContentLoaded', iniciarMinijoc);
+window.addEventListener('DOMContentLoaded', () => {
+    // Per defecte carrega mode Emoji
+    setGameMode('emoji');
+    iniciarMinijoc();
+});
