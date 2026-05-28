@@ -23,89 +23,180 @@
   --accent2: #4ecdc4;
 }
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+body { 
+  margin: 0; 
+  font-family: system-ui, -apple-system, sans-serif; 
+  background: var(--bg); 
+  color: var(--text); 
+  min-height: 100vh; 
+  display: flex; 
+  flex-direction: column; 
 }
 
-header {
-  text-align: center;
-  padding: 1.5rem 1rem;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
+header { 
+  text-align: center; 
+  padding: 1.5rem 1rem; 
+  background: linear-gradient(135deg, var(--accent), var(--accent2)); 
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-header h1 {
-  margin: 0;
-  font-size: 1.8rem;
+header h1 { 
+  margin: 0 0 0.8rem 0; 
+  font-size: 1.8rem; 
+  font-weight: 800;
 }
 
-.lang-switch {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-  margin-top: 0.5rem;
+.lang-switch { 
+  display: flex; 
+  gap: 0.5rem; 
+  justify-content: center; 
+  margin-top: 0.5rem; 
 }
 
-.lang-switch button {
-  background: rgba(255,255,255,0.2);
-  border: none;
-  color: #fff;
-  padding: 0.3rem 0.8rem;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.lang-switch button.active { background: #fff; color: #000; }
-
-main {
-  flex: 1;
-  padding: 1.5rem;
-  max-width: 900px;
-  margin: 0 auto;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
-}
-
-.btn {
-  background: var(--card);
-  border: 2px solid var(--accent);
-  border-radius: 12px;
-  padding: 1.5rem 1rem;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.2s, background 0.2s;
-  font-size: 1rem;
+.lang-switch button { 
+  background: rgba(255,255,255,0.2); 
+  border: 2px solid transparent;
+  color: #fff; 
+  padding: 0.4rem 1rem; 
+  border-radius: 20px; 
+  cursor: pointer; 
   font-weight: 600;
+  transition: 0.25s ease;
 }
-.btn:hover { transform: translateY(-3px); background: #333; }
-.btn.emoji { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
 
-.tips-box {
-  background: var(--card);
-  border-left: 4px solid var(--accent2);
-  padding: 1rem;
-  border-radius: 8px;
-  margin: 1.5rem 0;
+.lang-switch button:hover { 
+  background: rgba(255,255,255,0.3);
+  transform: translateY(-2px);
+}
+
+.lang-switch button.active { 
+  background: #fff; 
+  color: var(--accent); 
+  border-color: #fff;
+}
+
+main { 
+  flex: 1; 
+  padding: 1.5rem; 
+  max-width: 900px; 
+  margin: 0 auto; 
+  width: 100%; 
+  box-sizing: border-box; 
+}
+
+.grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+  gap: 1rem; 
+}
+
+.btn { 
+  background: var(--card); 
+  border: 2px solid var(--accent); 
+  border-radius: 12px; 
+  padding: 1.5rem 1rem; 
+  text-align: center; 
+  cursor: pointer; 
+  transition: transform 0.25s ease, background 0.25s ease;
+  font-size: 1rem; 
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.btn:hover { 
+  transform: translateY(-4px); 
+  background: #333; 
+  box-shadow: 0 6px 20px rgba(255,107,107,0.2);
+}
+
+.btn .emoji { 
+  font-size: 2.5rem; 
+  display: block; 
+  margin-bottom: 0.5rem; 
+  line-height: 1;
+}
+
+.tips-box { 
+  background: var(--card); 
+  border-left: 4px solid var(--accent2); 
+  padding: 1.2rem; 
+  border-radius: 8px; 
+  margin: 1.5rem 0; 
   font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
 }
 
 .hidden { display: none; }
 
-#gremioPanel, #lecturaPanel, #botigaPanel {
+#gremioPanel, #lecturaPanel, #tipsPanel, #botigaPanel {
   background: var(--card);
   border-radius: 12px;
   padding: 1.5rem;
   margin-top: 1.5rem;
+  border: 2px solid #333;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.parlantito-btn {
+  background: #ffd93d;
+  color: #000;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: 0.25s ease;
+}
+
+.parlantito-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(255,217,61,0.4);
+}
+
+.btn-back {
+  background: transparent;
+  border: 2px solid var(--accent2);
+  color: var(--accent2);
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.5rem;
+}
+
+.btn-back:hover {
+  background: rgba(78,205,196,0.1);
+}
+
+#botigaGrid .btn::after {
+  content: '🔒';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 1.2rem;
+  opacity: 0.3;
+}
+
+#botigaGrid .btn.desbloquejat::after {
+  content: '✓';
+  opacity: 1;
+  color: var(--accent2);
+}
+
+@media (max-width: 600px) {
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+  .btn { padding: 1.2rem 0.8rem; font-size: 0.9rem; }
+  .btn .emoji { font-size: 2rem; }
+  main { padding: 1rem; }
 }
 </style>
 </head>
@@ -158,7 +249,7 @@ main {
         <span id="btnMini">Mini Yoko</span>
       </div>
     </div>
-    <button class="btn" onclick="hidePanels()" style="margin-top:1rem">← Tornar</button>
+    <button class="btn btn-back" onclick="hidePanels()">← Tornar</button>
   </div>
 
   <!-- Panel Lectura -->
@@ -167,7 +258,7 @@ main {
     <p id="lecturaDesc">Genera una lectura de 23 minuts amb el Parlantito</p>
     <button class="btn" onclick="generarLectura()">Generar Lectura</button>
     <div id="lecturaContent" style="margin-top:1.5rem"></div>
-    <button class="btn" onclick="hidePanels()" style="margin-top:1rem">← Tornar</button>
+    <button class="btn btn-back" onclick="hidePanels()">← Tornar</button>
   </div>
 
   <!-- Panel Tips -->
@@ -175,7 +266,7 @@ main {
     <h2 id="tipsTitle">Tips Rotatius</h2>
     <div class="tips-box" id="tipActual"></div>
     <button class="btn" onclick="siguienteTip()">Següent Tip</button>
-    <button class="btn" onclick="hidePanels()" style="margin-top:1rem">← Tornar</button>
+    <button class="btn btn-back" onclick="hidePanels()">← Tornar</button>
   </div>
 
   <!-- Panel Botiga -->
@@ -183,11 +274,11 @@ main {
     <h2 id="botigaTitle">Botiga d’Emojis</h2>
     <p id="botigaDesc">Compra packs per desbloquejar més diccionari</p>
     <div class="grid" id="botigaGrid"></div>
-    <button class="btn" onclick="hidePanels()" style="margin-top:1rem">← Tornar</button>
+    <button class="btn btn-back" onclick="hidePanels()">← Tornar</button>
   </div>
 </main>
 
-<!-- Scripts del joc -->
+<!-- Scripts del joc - ORDE IMPORTANT -->
 <script src="lec-emoji-data.js"></script>
 <script src="lec-botiga-data.js"></script>
 <script src="lec-frases-data.js"></script>
@@ -196,103 +287,5 @@ main {
 <script src="lectura-generator.js"></script>
 <script src="lec-minijoc.js"></script>
 <script src="main.js"></script>
-
-<script>
-// Idiomes
-const textos = {
-  ca: { title: "LingoEmojiCat", gremio: "Gremi", biblioteca: "Biblioteca", diccionari: "Diccionari", mini: "Mini Yoko", lectura: "Lectura", lecturaDesc: "Genera una lectura de 23 minuts amb el Parlantito", tips: "Tips", botiga: "Botiga", botigaDesc: "Compra packs per desbloquejar més diccionari" },
-  es: { title: "LingoEmojiCat", gremio: "Gremio", biblioteca: "Biblioteca", diccionari: "Diccionario", mini: "Mini Yoko", lectura: "Lectura", lecturaDesc: "Genera una lectura de 23 minutos con el Parlantito", tips: "Tips", botiga: "Tienda", botigaDesc: "Compra packs para desbloquear más diccionario" },
-  en: { title: "LingoEmojiCat", gremio: "Guild", biblioteca: "Library", diccionari: "Dictionary", mini: "Mini Yoko", lectura: "Reading", lecturaDesc: "Generate a 23-minute reading with Parlantito", tips: "Tips", botiga: "Shop", botigaDesc: "Buy packs to unlock more dictionary" }
-};
-
-let langActual = 'ca';
-
-function setLang(lang) {
-  langActual = lang;
-  document.querySelectorAll('.lang-switch button').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-
-  const t = textos[lang];
-  document.getElementById('title').textContent = t.title;
-  document.getElementById('btnGremio').textContent = t.gremio;
-  document.getElementById('btnLectura').textContent = t.lectura;
-  document.getElementById('btnTips').textContent = t.tips;
-  document.getElementById('btnBotiga').textContent = t.botiga;
-  document.getElementById('gremioTitle').textContent = t.gremio;
-  document.getElementById('btnBiblioteca').textContent = t.biblioteca;
-  document.getElementById('btnDiccionari').textContent = t.diccionari;
-  document.getElementById('btnMini').textContent = t.mini;
-  document.getElementById('lecturaTitle').textContent = t.lectura;
-  document.getElementById('lecturaDesc').textContent = t.lecturaDesc;
-  document.getElementById('tipsTitle').textContent = t.tips;
-  document.getElementById('botigaTitle').textContent = t.botiga;
-  document.getElementById('botigaDesc').textContent = t.botigaDesc;
-}
-
-// Navegació
-function showPanel(id) {
-  hidePanels();
-  document.getElementById('menuPrincipal').classList.add('hidden');
-  document.getElementById(id + 'Panel').classList.remove('hidden');
-
-  if(id === 'tips') mostrarTip();
-  if(id === 'botiga') cargarBotiga();
-}
-
-function hidePanels() {
-  document.getElementById('menuPrincipal').classList.remove('hidden');
-  document.querySelectorAll('#gremioPanel, #lecturaPanel, #tipsPanel, #botigaPanel').forEach(p => p.classList.add('hidden'));
-}
-
-// Funcions a implementar a main.js
-function obrirBiblioteca() { alert('Biblioteca - per connectar amb lectura-content.js'); }
-function obrirDiccionari() { alert('Diccionari - per connectar amb dades desbloquejades'); }
-function generarLectura() {
-  if(typeof generarLectura23min === 'function') {
-    const lectura = generarLectura23min();
-    document.getElementById('lecturaContent').innerHTML = lectura;
-  } else {
-    alert('Parlantito en construcció');
-  }
-}
-
-// Tips rotatius
-let tipIndex = 0;
-function mostrarTip() {
-  if(typeof TIPS!== 'undefined' && TIPS.length > 0) {
-    document.getElementById('tipActual').textContent = TIPS[tipIndex][langActual] || TIPS[tipIndex].ca;
-  }
-}
-function siguienteTip() {
-  if(typeof TIPS!== 'undefined') {
-    tipIndex = (tipIndex + 1) % TIPS.length;
-    mostrarTip();
-  }
-}
-
-// Botiga
-function cargarBotiga() {
-  const grid = document.getElementById('botigaGrid');
-  grid.innerHTML = '';
-  if(typeof BOTIGA_EMOJI_DATA!== 'undefined') {
-    BOTIGA_EMOJI_DATA.forEach(pack => {
-      const btn = document.createElement('div');
-      btn.className = 'btn';
-      btn.innerHTML = `<span class="emoji">${pack.emoji}</span>${pack.nom}`;
-      btn.onclick = () => comprarPack(pack);
-      grid.appendChild(btn);
-    });
-  }
-}
-function comprarPack(pack) {
-  alert(`Comprat: ${pack.nom}. Desbloquejat al diccionari!`);
-  // Aquí guardaries a localStorage i desbloquegaries al diccionari
-}
-
-// Registrar service worker
-if('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
-}
-</script>
 </body>
-          </html>
+</html>
