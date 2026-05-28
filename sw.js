@@ -1,7 +1,7 @@
 
 /* ===== LINGOEMOJICAT - SERVICE WORKER ===== */
 
-const CACHE_NAME = 'lingoemojicat-v3';
+const CACHE_NAME = 'lingoemojicat-v7';
 const ASSETS_TO_CACHE = [
   // HTML i PWA
   './',
