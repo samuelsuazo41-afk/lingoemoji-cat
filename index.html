@@ -1,1 +1,298 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LingoEmojiCat</title>
 
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#ff6b6b">
+
+<!-- Estils -->
+<link rel="stylesheet" href="styles.css">
+
+<style>
+:root {
+  --bg: #1a1a1a;
+  --card: #2a2a2a;
+  --text: #fff;
+  --accent: #ff6b6b;
+  --accent2: #4ecdc4;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.lang-switch {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.lang-switch button {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: #fff;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.lang-switch button.active { background: #fff; color: #000; }
+
+main {
+  flex: 1;
+  padding: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.btn {
+  background: var(--card);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.btn:hover { transform: translateY(-3px); background: #333; }
+.btn.emoji { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
+
+.tips-box {
+  background: var(--card);
+  border-left: 4px solid var(--accent2);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  font-style: italic;
+}
+
+.hidden { display: none; }
+
+#gremioPanel, #lecturaPanel, #botigaPanel {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+</style>
+</head>
+
+<body>
+<header>
+  <h1 id="title">LingoEmojiCat</h1>
+  <div class="lang-switch">
+    <button class="active" onclick="setLang('ca')">CAT</button>
+    <button onclick="setLang('es')">ESP</button>
+    <button onclick="setLang('en')">ENG</button>
+  </div>
+</header>
+
+<main>
+  <!-- Menú principal -->
+  <div class="grid" id="menuPrincipal">
+    <div class="btn" onclick="showPanel('gremio')">
+      <span class="emoji">🏰</span>
+      <span id="btnGremio">Gremi</span>
+    </div>
+    <div class="btn" onclick="showPanel('lectura')">
+      <span class="emoji">📖</span>
+      <span id="btnLectura">Lectura</span>
+    </div>
+    <div class="btn" onclick="showPanel('tips')">
+      <span class="emoji">💡</span>
+      <span id="btnTips">Tips</span>
+    </div>
+    <div class="btn" onclick="showPanel('botiga')">
+      <span class="emoji">🛒</span>
+      <span id="btnBotiga">Botiga</span>
+    </div>
+  </div>
+
+  <!-- Panel Gremi -->
+  <div id="gremioPanel" class="hidden">
+    <h2 id="gremioTitle">Gremi</h2>
+    <div class="grid">
+      <div class="btn" onclick="obrirBiblioteca()">
+        <span class="emoji">📚</span>
+        <span id="btnBiblioteca">Biblioteca</span>
+      </div>
+      <div class="btn" onclick="obrirDiccionari()">
+        <span class="emoji">📖</span>
+        <span id="btnDiccionari">Diccionari</span>
+      </div>
+      <div class="btn" onclick="iniciarMinijoc()">
+        <span class="emoji">🎮</span>
+        <span id="btnMini">Mini Yoko</span>
+      </div>
+    </div>
+    <button class="btn" onclick="hidePanels()" style="margin-top:1rem">← Tornar</button>
+  </div>
+
+  <!-- Panel Lectura -->
+  <div id="lecturaPanel" class="hidden">
+    <h2 id="lecturaTitle">Lectura 23 min</h2>
+    <p id="lecturaDesc">Genera una lectura de 23 minuts amb el Parlantito</p>
+    <button class="btn" onclick="generarLectura()">Generar Lectura</button>
+    <div id="lecturaContent" style="margin-top:1.5rem"></div>
+    <button class="btn" onclick="hidePanels()" style="margin-top:1rem">← Tornar</button>
+  </div>
+
+  <!-- Panel Tips -->
+  <div id="tipsPanel" class="hidden">
+    <h2 id="tipsTitle">Tips Rotatius</h2>
+    <div class="tips-box" id="tipActual"></div>
+    <button class="btn" onclick="siguienteTip()">Següent Tip</button>
+    <button class="btn" onclick="hidePanels()" style="margin-top:1rem">← Tornar</button>
+  </div>
+
+  <!-- Panel Botiga -->
+  <div id="botigaPanel" class="hidden">
+    <h2 id="botigaTitle">Botiga d’Emojis</h2>
+    <p id="botigaDesc">Compra packs per desbloquejar més diccionari</p>
+    <div class="grid" id="botigaGrid"></div>
+    <button class="btn" onclick="hidePanels()" style="margin-top:1rem">← Tornar</button>
+  </div>
+</main>
+
+<!-- Scripts del joc -->
+<script src="lec-emoji-data.js"></script>
+<script src="lec-botiga-data.js"></script>
+<script src="lec-frases-data.js"></script>
+<script src="tips-data.js"></script>
+<script src="lectura-content.js"></script>
+<script src="lectura-generator.js"></script>
+<script src="lec-minijoc.js"></script>
+<script src="main.js"></script>
+
+<script>
+// Idiomes
+const textos = {
+  ca: { title: "LingoEmojiCat", gremio: "Gremi", biblioteca: "Biblioteca", diccionari: "Diccionari", mini: "Mini Yoko", lectura: "Lectura", lecturaDesc: "Genera una lectura de 23 minuts amb el Parlantito", tips: "Tips", botiga: "Botiga", botigaDesc: "Compra packs per desbloquejar més diccionari" },
+  es: { title: "LingoEmojiCat", gremio: "Gremio", biblioteca: "Biblioteca", diccionari: "Diccionario", mini: "Mini Yoko", lectura: "Lectura", lecturaDesc: "Genera una lectura de 23 minutos con el Parlantito", tips: "Tips", botiga: "Tienda", botigaDesc: "Compra packs para desbloquear más diccionario" },
+  en: { title: "LingoEmojiCat", gremio: "Guild", biblioteca: "Library", diccionari: "Dictionary", mini: "Mini Yoko", lectura: "Reading", lecturaDesc: "Generate a 23-minute reading with Parlantito", tips: "Tips", botiga: "Shop", botigaDesc: "Buy packs to unlock more dictionary" }
+};
+
+let langActual = 'ca';
+
+function setLang(lang) {
+  langActual = lang;
+  document.querySelectorAll('.lang-switch button').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  const t = textos[lang];
+  document.getElementById('title').textContent = t.title;
+  document.getElementById('btnGremio').textContent = t.gremio;
+  document.getElementById('btnLectura').textContent = t.lectura;
+  document.getElementById('btnTips').textContent = t.tips;
+  document.getElementById('btnBotiga').textContent = t.botiga;
+  document.getElementById('gremioTitle').textContent = t.gremio;
+  document.getElementById('btnBiblioteca').textContent = t.biblioteca;
+  document.getElementById('btnDiccionari').textContent = t.diccionari;
+  document.getElementById('btnMini').textContent = t.mini;
+  document.getElementById('lecturaTitle').textContent = t.lectura;
+  document.getElementById('lecturaDesc').textContent = t.lecturaDesc;
+  document.getElementById('tipsTitle').textContent = t.tips;
+  document.getElementById('botigaTitle').textContent = t.botiga;
+  document.getElementById('botigaDesc').textContent = t.botigaDesc;
+}
+
+// Navegació
+function showPanel(id) {
+  hidePanels();
+  document.getElementById('menuPrincipal').classList.add('hidden');
+  document.getElementById(id + 'Panel').classList.remove('hidden');
+
+  if(id === 'tips') mostrarTip();
+  if(id === 'botiga') cargarBotiga();
+}
+
+function hidePanels() {
+  document.getElementById('menuPrincipal').classList.remove('hidden');
+  document.querySelectorAll('#gremioPanel, #lecturaPanel, #tipsPanel, #botigaPanel').forEach(p => p.classList.add('hidden'));
+}
+
+// Funcions a implementar a main.js
+function obrirBiblioteca() { alert('Biblioteca - per connectar amb lectura-content.js'); }
+function obrirDiccionari() { alert('Diccionari - per connectar amb dades desbloquejades'); }
+function generarLectura() {
+  if(typeof generarLectura23min === 'function') {
+    const lectura = generarLectura23min();
+    document.getElementById('lecturaContent').innerHTML = lectura;
+  } else {
+    alert('Parlantito en construcció');
+  }
+}
+
+// Tips rotatius
+let tipIndex = 0;
+function mostrarTip() {
+  if(typeof TIPS!== 'undefined' && TIPS.length > 0) {
+    document.getElementById('tipActual').textContent = TIPS[tipIndex][langActual] || TIPS[tipIndex].ca;
+  }
+}
+function siguienteTip() {
+  if(typeof TIPS!== 'undefined') {
+    tipIndex = (tipIndex + 1) % TIPS.length;
+    mostrarTip();
+  }
+}
+
+// Botiga
+function cargarBotiga() {
+  const grid = document.getElementById('botigaGrid');
+  grid.innerHTML = '';
+  if(typeof BOTIGA_EMOJI_DATA!== 'undefined') {
+    BOTIGA_EMOJI_DATA.forEach(pack => {
+      const btn = document.createElement('div');
+      btn.className = 'btn';
+      btn.innerHTML = `<span class="emoji">${pack.emoji}</span>${pack.nom}`;
+      btn.onclick = () => comprarPack(pack);
+      grid.appendChild(btn);
+    });
+  }
+}
+function comprarPack(pack) {
+  alert(`Comprat: ${pack.nom}. Desbloquejat al diccionari!`);
+  // Aquí guardaries a localStorage i desbloquegaries al diccionari
+}
+
+// Registrar service worker
+if('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
+</script>
+</body>
+          </html>
