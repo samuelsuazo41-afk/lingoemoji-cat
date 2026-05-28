@@ -1,1 +1,317 @@
+/* ===== LINGOEMOJICAT - STYLES ===== */
 
+:root {
+  --bg: #121212;
+  --bg-gradient: linear-gradient(180deg, #1a1a2e 0%, #121212 100%);
+  --card: #1e1e2e;
+  --card-hover: #2a2a3e;
+  --text: #e0e0e0;
+  --text-muted: #888;
+  --accent: #ff6b6b;
+  --accent2: #4ecdc4;
+  --accent3: #ffd93d;
+  --border: #333;
+  --shadow: 0 4px 12px rgba(0,0,0,0.4);
+  --radius: 12px;
+  --transition: 0.25s ease;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-gradient);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* ===== HEADER ===== */
+header {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header h1 {
+  margin: 0 0 0.8rem 0;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Language switch */
+.lang-switch {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.lang-switch button {
+  background: rgba(255,255,255,0.15);
+  border: 2px solid transparent;
+  color: #fff;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: var(--transition);
+}
+
+.lang-switch button:hover {
+  background: rgba(255,255,255,0.25);
+  transform: translateY(-2px);
+}
+
+.lang-switch button.active {
+  background: #fff;
+  color: var(--accent);
+  border-color: #fff;
+}
+
+/* ===== MAIN CONTENT ===== */
+main {
+  flex: 1;
+  padding: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Grid for buttons */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+/* Main buttons */
+.btn {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+  user-select: none;
+}
+
+.btn:hover {
+  transform: translateY(-4px);
+  background: var(--card-hover);
+  border-color: var(--accent);
+  box-shadow: 0 6px 20px rgba(255,107,107,0.2);
+}
+
+.btn:active {
+  transform: translateY(-1px);
+}
+
+.btn .emoji {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+/* ===== PANELS ===== */
+.hidden {
+  display: none !important;
+}
+
+#gremioPanel,
+#lecturaPanel,
+#tipsPanel,
+#botigaPanel {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  border: 2px solid var(--border);
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#gremioPanel h2,
+#lecturaPanel h2,
+#tipsPanel h2,
+#botigaPanel h2 {
+  margin-top: 0;
+  color: var(--accent2);
+  font-size: 1.5rem;
+}
+
+#gremioPanel p,
+#lecturaPanel p,
+#botigaPanel p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ===== TIPS BOX ===== */
+.tips-box {
+  background: linear-gradient(135deg, rgba(78,205,196,0.1) 0%, rgba(78,205,196,0.05) 100%);
+  border-left: 4px solid var(--accent2);
+  padding: 1.2rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+}
+
+/* ===== LECTURA CONTENT ===== */
+#lecturaContent {
+  margin-top: 1.5rem;
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  border: 2px solid var(--border);
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+#lecturaContent h3 {
+  color: var(--accent3);
+  margin-top: 0;
+}
+
+/* Parlantito button */
+.parlantito-btn {
+  background: var(--accent3);
+  color: #000;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: var(--transition);
+}
+
+.parlantito-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(255,217,61,0.4);
+}
+
+/* ===== BOTIGA ===== */
+#botigaGrid .btn {
+  position: relative;
+  overflow: hidden;
+}
+
+#botigaGrid .btn::after {
+  content: '🔒';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 1.2rem;
+  opacity: 0.3;
+}
+
+#botigaGrid .btn.desbloquejat::after {
+  content: '✓';
+  opacity: 1;
+  color: var(--accent2);
+}
+
+/* ===== BACK BUTTON ===== */
+.btn-back {
+  background: transparent;
+  border: 2px solid var(--accent2);
+  color: var(--accent2);
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.5rem;
+}
+
+.btn-back:hover {
+  background: rgba(78,205,196,0.1);
+  border-color: var(--accent2);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+  
+  .btn {
+    padding: 1.2rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  .btn .emoji {
+    font-size: 2rem;
+  }
+  
+  main {
+    padding: 1rem;
+  }
+}
+
+/* ===== LOADING ANIMATION ===== */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: var(--accent);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent2);
+  }
